@@ -1,0 +1,44 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ProfessionalLink {
+  id   Int    @id @default(autoincrement())
+  name String
+  url  String
+
+  @@map("professional_links")
+}
+
+model Project {
+  id   Int    @id @default(autoincrement())
+  name String
+  url  String
+
+  @@map("projects")
+}
+
+model Skill {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  @@map("skills")
+}
+
+/// PostgreSQL enforces the YYYY-MM constraints defined in the SQL migration.
+model WorkExperience {
+  id           Int      @id @default(autoincrement())
+  company      String
+  position     String
+  startDate    String   @map("start_date")
+  endDate      String?  @map("end_date")
+  achievements String[]
+
+  @@map("work_experience")
+}

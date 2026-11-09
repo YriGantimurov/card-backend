@@ -1,0 +1,46 @@
+type Query {
+  about: About!
+  experience: [WorkExperience!]!
+  projects: [Project!]!
+  skills: [Skill!]!
+  profile: Profile!
+}
+
+type About {
+  name: String!
+  description: String!
+  links: [ProfessionalLink!]!
+}
+
+type Profile {
+  name: String!
+  description: String!
+  links: [ProfessionalLink!]!
+  experience: [WorkExperience!]!
+  projects: [Project!]!
+  skills: [Skill!]!
+}
+
+type ProfessionalLink {
+  name: String!
+  url: String!
+}
+
+type WorkExperience {
+  company: String!
+  position: String!
+  """Start month in YYYY-MM format."""
+  startDate: String!
+  """End month in YYYY-MM format, or null for a current role."""
+  endDate: String
+  achievements: [String!]!
+}
+
+type Project {
+  name: String!
+  url: String!
+}
+
+type Skill {
+  name: String!
+}

@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:18.6
+    environment:
+      POSTGRES_DB: card
+      POSTGRES_USER: card
+      POSTGRES_PASSWORD: card_local
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -h 127.0.0.1 -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+  backend:
+    init: true
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://card:card_local@db:5432/card
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:3000:3000'
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - >-
+          fetch('http://127.0.0.1:3000/health').then(
+            response => process.exit(response.ok ? 0 : 1),
+            () => process.exit(1)
+          )
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  postgres_data:

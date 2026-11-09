@@ -1,0 +1,43 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "prebuild": "prisma generate",
+    "build": "nest build",
+    "prestart": "prisma generate",
+    "start": "nest start",
+    "prestart:dev": "prisma generate",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main",
+    "test:unit": "npm run build && node --test test/*.unit.test.mjs",
+    "test:integration": "node --test test/profile.integration.test.mjs",
+    "test:integration:isolated": "npm run build && node test/profile.integration.test.mjs --isolated"
+  },
+  "dependencies": {
+    "@apollo/server": "5.5.1",
+    "@as-integrations/express5": "1.1.2",
+    "@nestjs/apollo": "14.2.0",
+    "@nestjs/common": "12.4.0",
+    "@nestjs/core": "12.4.0",
+    "@nestjs/graphql": "14.2.0",
+    "@nestjs/platform-express": "12.4.0",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "graphql": "16.15.0",
+    "prisma": "7.10.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^12.0.0",
+    "@nestjs/schematics": "^12.0.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.0.0",
+    "typescript": "^6.0.2"
+  }
+}
